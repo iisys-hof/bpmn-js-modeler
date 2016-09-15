@@ -1,0 +1,160 @@
+[
+
+  {
+    "name": "CMIS: Create Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.cmis.CreateDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.cmis.CreateDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Parent Folder Id",
+        "type": "String",
+        "value": "${ iisys_parentFolderId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_parentFolderId"
+        }
+      },
+      {
+        "label": "Output: New Document Id",
+        "type": "String",
+        "value": "iisys_documentId",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ iisys_documentId }"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "CMIS: Create Folder",
+    "id": "de.hofuniversity.iisys.camunda.workflows.cmis.CreateFolderDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.cmis.CreateFolderDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Parent Folder Id",
+        "type": "String",
+        "value": "${ iisys_parentFolderId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_parentFolderId"
+        }
+      },
+      {
+        "label": "New Folder Name",
+        "type": "String",
+        "value": "${ iisys_folderName }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_folderName"
+        }
+      },
+      {
+        "label": "Output: New Folder Id",
+        "type": "String",
+        "value": "iisys_folderId",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ iisys_folderId }"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "CMIS: Delete Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.cmis.DeleteDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.cmis.DeleteDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "CMIS: Move Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.cmis.MoveDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.cmis.MoveDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Current Folder Id",
+        "type": "String",
+        "value": "${ iisys_currentFolderId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_currentFolderId"
+        }
+      },
+      {
+        "label": "Target Folder Id",
+        "type": "String",
+        "value": "${ iisys_newFolderId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_newFolderId"
+        }
+      }
+    ]
+  }
+
+]

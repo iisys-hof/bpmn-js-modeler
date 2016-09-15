@@ -1,0 +1,103 @@
+{
+  "serviceTasks": [
+    {
+      "class": "default",
+      "label": "defLabel",
+      "input": [
+        {
+          "string": [],
+          "boolean": [
+          ]
+        }
+      ],
+      "output": [
+        {
+          "string": [
+          ],
+          "boolean": [
+          ]
+        }
+      ]
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.AddDocumentToWorklistDelegate",
+      "label": "nuxeo.AddDocumentToWorklist"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.AddPermissionToDocumentDelegate",
+      "label": "nuxeo.AddPermissionToDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.AddTagToDocumentDelegate",
+      "label": "nuxeo.AddTagToDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ApproveAndCreateVersionOfDocumentDelegate",
+      "label": "nuxeo.ApproveAndCreateVersionOfDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.CreateDocumentDelegate",
+      "label": "nuxeo.CreateDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.CreateFolderDelegate",
+      "label": "nuxeo.CreateFolder"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.DeleteDocumentDelegate",
+      "label": "nuxeo.DeleteDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.LockDocumentDelegate",
+      "label": "nuxeo.LockDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ManipulateDocumentDelegate",
+      "label": "nuxeo.ManipulateDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.MoveDocumentDelegate",
+      "label": "nuxeo.MoveDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.PublishDocumentDelegate",
+      "label": "nuxeo.PublishDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ReadDocumentDelegate",
+      "label": "nuxeo.ReadDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.RemovePermissionFromDocumentDelegate",
+      "label": "nuxeo.RemovePermissionFromDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.RenderDocumentDelegate",
+      "label": "nuxeo.RenderDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.nuxeo.UnlockDocumentDelegate",
+      "label": "nuxeo.UnlockDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.cmis.CreateDocumentDelegate",
+      "label": "cmis.CreateDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.cmis.CreateFolderDelegate",
+      "label": "cmis.CreateFolder"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.cmis.DeleteDocumentDelegate",
+      "label": "cmis.DeleteDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.cmis.MoveDocumentDelegate",
+      "label": "cmis.MoveDocument"
+    },
+    {
+      "class": "de.hofuniversity.iisys.camunda.workflows.cmis.SetPermissionForFolderDelegate",
+      "label": "cmis.SetPermissionForFolder"
+    }
+  ]
+}

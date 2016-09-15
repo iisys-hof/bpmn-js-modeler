@@ -1,0 +1,824 @@
+[
+  {
+    "name": "Approve Document (use given approver)",
+    "id": "de.hofuniversity.iisys.camunda.workflows.ApproveDocumentGivenApprover",
+    "appliesTo": [
+      "bpmn:UserTask"
+    ],
+    "properties": [
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Approver (assignee)",
+        "description": "Uses approver from previous step. Do not forget to create a boolean 'approved'-form.",
+        "type": "String",
+        "value": "${ iisys_approver1 }",
+        "binding": {
+          "type": "property",
+          "name": "camunda:assignee"
+        }
+      }
+    ],
+    "entriesVisible": {
+      "_all": true,
+      "assignee": false
+    }
+  },
+
+  {
+    "name": "Get Current Mail Sender",
+    "id": "de.hofuniversity.iisys.camunda.workflows.mail.GetMailSender",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+       {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.mail.GetMailSender",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Output: Sender Id",
+        "type": "String",
+        "value": "senderId",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ senderId }"
+        }
+      },
+      {
+        "label": "Output: Sender Mail",
+        "type": "String",
+        "value": "senderMail",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ senderMail }"
+        }
+      }
+    ],
+    "entriesVisible": {
+
+    }
+  },
+
+  {
+    "name": "Get Current User's Approver(s)",
+    "id": "de.hofuniversity.iisys.camunda.workflows.ldap.LdapDetermineApprover",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.ldap.LdapDetermineApprover",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Output: Approver 1",
+        "type": "String",
+        "value": "iisys_approver1",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ iisys_approver1 }"
+        }
+      },
+      {
+        "label": "Output: Approver 2",
+        "type": "String",
+        "value": "iisys_approver2",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ iisys_approver2 }"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Add Document to Worklist",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.AddDocumentToWorklistDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.AddDocumentToWorklistDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Add Permission to Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.AddPermissionToDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.AddPermissionToDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Subject / User",
+        "type": "String",
+        "value": "${ iisys_permUser }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_permUser"
+        }
+      },
+      {
+        "label": "Access Control List (ACL)",
+        "type": "String",
+        "value": "${ iisys_permAcl }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_permAcl"
+        }
+      },
+      {
+        "label": "Permission",
+        "type": "String",
+        "value": "${ iisys_permPermission }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_permPermission"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Add Tag to Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.AddTagToDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.AddTagToDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Tag",
+        "type": "String",
+        "value": "${ iisys_tag }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_tag"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Approve and Create Version of Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ApproveAndCreateVersionOfDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ApproveAndCreateVersionOfDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Create Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.CreateDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.CreateDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Parent Folder Id",
+        "type": "String",
+        "value": "${ iisys_parentFolderId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_parentFolderId"
+        }
+      },
+      {
+        "label": "Output: New Document Id",
+        "type": "String",
+        "value": "iisys_documentId",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ iisys_documentId }"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Create Folder",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.CreateFolderDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.CreateFolderDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Parent Folder Id",
+        "type": "String",
+        "value": "${ iisys_parentFolderId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_parentFolderId"
+        }
+      },
+      {
+        "label": "New Folder Name",
+        "type": "String",
+        "value": "${ iisys_folderName }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_folderName"
+        }
+      },
+      {
+        "label": "Output: New Folder Id",
+        "type": "String",
+        "value": "iisys_folderId",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ iisys_folderId }"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Delete Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.DeleteDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.DeleteDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Lock Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.LockDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.LockDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Manipulate Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ManipulateDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ManipulateDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Description",
+        "type": "Text",
+        "value": "${ descriptionText }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "descriptionText"
+        }
+      },
+      {
+        "label": "Source Text",
+        "type": "Text",
+        "value": "${ sourceText }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "sourceText"
+        }
+      },
+      {
+        "label": "Output: Description",
+        "type": "String",
+        "value": "descriptionText",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ descriptionText }"
+        }
+      },
+      {
+        "label": "Output: Source Text",
+        "type": "String",
+        "value": "sourceText",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ sourceText }"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Move Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.MoveDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.MoveDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Target Folder Id",
+        "type": "String",
+        "value": "${ iisys_newFolderId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_newFolderId"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Publish Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.PublishDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.PublishDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Target Section",
+        "type": "String",
+        "value": "${ iisys_sectionId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_sectionId"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Read Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ReadDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ReadDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Output: Description",
+        "type": "String",
+        "value": "descriptionText",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ descriptionText }"
+        }
+      },
+      {
+        "label": "Output: Source Text",
+        "type": "String",
+        "value": "sourceText",
+        "binding":{
+          "type": "camunda:outputParameter",
+          "source": "${ sourceText }"
+        }
+      }
+    ]
+  },
+
+   {
+    "name": "Nuxeo: Read Document Fields",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ReadDocumentFieldsDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.ReadDocumentFieldsDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Comma-separated Fields to receive",
+        "description": "Specify comma-separated list of fields to receive.",
+        "type": "String",
+        "value": "${ iisys_doc_fields }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_doc_fields"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Remove Permission from Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.RemovePermissionFromDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.RemovePermissionFromDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Subject / User",
+        "type": "String",
+        "value": "${ iisys_permUser }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_permUser"
+        }
+      },
+      {
+        "label": "Access Control List (ACL)",
+        "type": "String",
+        "value": "${ iisys_permAcl }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_permAcl"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Render Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.RenderDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.RenderDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      },
+      {
+        "label": "Filename",
+        "type": "String",
+        "value": "${ iisys_renderFilename }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_renderFilename"
+        }
+      },
+      {
+        "label": "Mime-Type",
+        "type": "String",
+        "value": "${ iisys_renderMimetype }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_renderMimetype"
+        }
+      },
+      {
+        "label": "Template",
+        "type": "String",
+        "value": "${ iisys_renderTemplate }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_renderTemplate"
+        }
+      },
+      {
+        "label": "Type",
+        "type": "String",
+        "value": "${ iisys_renderType }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_renderType"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Nuxeo: Unlock Document",
+    "id": "de.hofuniversity.iisys.camunda.workflows.nuxeo.UnlockDocumentDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+      {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.nuxeo.UnlockDocumentDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Document Id",
+        "type": "String",
+        "value": "${ iisys_documentId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "iisys_documentId"
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Send Mail",
+    "id": "de.hofuniversity.iisys.camunda.workflows.mail.SendMailDelegate",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "properties": [
+       {
+        "label": "Java Class",
+        "type": "String",
+        "value": "de.hofuniversity.iisys.camunda.workflows.mail.SendMailDelegate",
+        "binding": {
+          "type": "property",
+          "name": "camunda:class"
+        }
+      },
+      {
+        "label": "Mail Body",
+        "type": "String",
+        "value": "${ mailBody }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "mailBody"
+        }
+      },
+      {
+        "label": "Mail Subject",
+        "type": "String",
+        "value": "${ mailSubject }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "mailSubject"
+        }
+      },
+      {
+        "label": "Recipient Mail Address",
+        "type": "String",
+        "value": "${ recipientMail }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "recipientMail"
+        }
+      },
+      {
+        "label": "Sender Id",
+        "type": "String",
+        "value": "${ senderId }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "senderId"
+        }
+      },
+      {
+        "label": "Sender Mail Address",
+        "type": "String",
+        "value": "${ senderMail }",
+        "binding":{
+          "type": "camunda:inputParameter",
+          "name": "senderMail"
+        }
+      }
+    ],
+    "entriesVisible": { }
+  }
+
+]
